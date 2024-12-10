@@ -1,6 +1,14 @@
 #include <iostream>
 using namespace std;
 
+// Possible names and drinks
+string names[] = {"Ella", "Inga", "Zane", "Oleg", "Wade", "Yale", "Tami",
+                  "Tara", "Axel", "Ola", "Beth", "Boyd", "Rosa"};
+const int NUM_NAMES = 13;
+string drinks[] = {"Espresso", "Latte", "Cappuccino", "Americano", "Mocha",
+                   "Flat White", "Macchiato", "Tea", "Hot Chocolate", "Iced Coffee"};
+const int NUM_DRINKS = 10;
+
 struct Node
 {
     string name;
@@ -55,12 +63,22 @@ class Queue
         };
 };
 
+
+
+
 int main()
 {
     srand(time(0));
 
-    // Possible names and drinks
-    string names[] = {""};
+    Queue coffeeQueue;
+
+    // Initialize Queue with three customers
+    for (int i = 0; i < 3; i++)
+    {
+        string randomName = names[ rand() % NUM_NAMES ];
+        string randomDrink = drinks[ rand() % NUM_DRINKS ];
+        coffeeQueue.enqueue(randomName, randomDrink);
+    }
 
     return 0;
 }
