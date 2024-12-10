@@ -25,8 +25,8 @@ struct CoffeeNode
 class CoffeeQueue
 {
     private:
-        Node* head;
-        Node* tail;
+        CoffeeNode* head;
+        CoffeeNode* tail;
 
     public:
         CoffeeQueue() : head(nullptr), tail(nullptr) {}
@@ -35,7 +35,7 @@ class CoffeeQueue
         {
             while (head != nullptr)
             {
-                Node* temp = head;
+                CoffeeNode* temp = head;
                 head = head->next;
                 delete temp;
             }
@@ -43,7 +43,7 @@ class CoffeeQueue
 
         void enqueue(const string& name, const string& drink)
         {
-            CoffeeQueue* newNode = new CoffeeQueue(name, drink);
+            CoffeeNode* newNode = new CoffeeNode(name, drink);
             if (tail == nullptr)
                 head = tail = newNode;
             else
@@ -56,7 +56,7 @@ class CoffeeQueue
 
         void displayQueue() const
         {
-            cout << "Current Queue: ";
+            cout << "Coffee Booth Queue: ";
             CoffeeNode* current = head;
             while (current != nullptr)
             {
@@ -88,7 +88,47 @@ class MuffinQueue
             queue.emplace_back(name, muffinType);
             cout << "Muffin Booth: Customer " << name << " with muffin" << muffinType << " joined the queue.\n";
         }
+
+        void displayQueue() const
+        {
+            cout << "Muffin Booth Queue: ";
+            for (const auto& customer : queue)
+                cout << "[" << customer.name << " - " << customer.muffinType << "] ";
+            cout << '\n';
+        }
 };
+
+// Bracelet Booth
+struct BraceletCustomer
+{
+    string name;
+    string braceletType;
+
+    BraceletCustomer(const string& customerName, const string& customerBracelet)
+        : name(customerName), braceletType(customerBracelet) {}
+};
+
+class BraceletQueue
+{
+    private:
+        vector<BraceletCustomer> queue;
+    public:
+        void enqueue(const string& name, const string& braceletType)
+        {
+            queue.emplace_back(name, braceletType);
+            cout << "Bracelet Booth: Customer " << name << " with bracelet " << braceletType << " joined the queue.\n";
+        }
+
+        void displayQueue() const
+        {
+            cout << "Bracelet Booth Queue: ";
+            for (const auto& customer : queue)
+                cout << "[" << customer.name << " - " << customer.braceletType << "] ";
+            cout << '\n';
+        }
+};
+
+// Sandwiches Booth
 
 int main()
 {
