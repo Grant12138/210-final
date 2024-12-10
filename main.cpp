@@ -219,7 +219,7 @@ class SandwichQueue
             cout << '\n';
         }
 
-        void dequeue(string& servedName, string& servedSandwich, int& servedPriority)
+        bool dequeue(string& servedName, string& servedSandwich, int& servedPriority)
         {
             if (queue.empty())
                 return false;
@@ -286,7 +286,7 @@ int main()
     const int TOTAL_ROUNDS = 10;
     for (int round = 1; round <= TOTAL_ROUNDS; round++)
     {
-        cout << "Round " << round << '\n';
+        cout << "\tRound " << round << '\n';
 
         // Coffee Booth
         string servedCoffeeName, servedCoffeeDrink;
@@ -350,8 +350,16 @@ int main()
             int newSandwichPriority = 1 + (rand() % 5);
             sandwichQueue.enqueue(newSandwichName, newSandwichType, newSandwichPriority);
         }
+
+        // Display the current queues
+        cout << "Current Queues After Round " << round << ":\n";
+        coffeeQueue.displayQueue();
+        muffinQueue.displayQueue();
+        braceletQueue.displayQueue();
+        sandwichQueue.displayQueue();
+        cout << "-------------------------------------------------------\n";
     }
 
-
+    cout << "Simulation ended.\n";
     return 0;
 }
