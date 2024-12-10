@@ -10,6 +10,7 @@ const int NUM_NAMES = 13;
 string drinks[] = {"Espresso", "Latte", "Cappuccino", "Americano", "Mocha",
                    "Flat White", "Macchiato", "Tea", "Hot Chocolate", "Iced Coffee"};
 const int NUM_DRINKS = 10;
+string muffinTypes[] = {"Blueberry", "Chocolate Chip"};
 
 // Coffee Booth
 struct CoffeeNode
@@ -129,6 +130,50 @@ class BraceletQueue
 };
 
 // Sandwiches Booth
+struct SandwichCustomer
+{
+    string name;
+    string sandwichType;
+    int priority;
+
+    SandwichCustomer(const string& customerName, const string& customerSandwich, int customerPriority)
+        : name(customerName), sandwichType(customerSandwich), priority(customerPriority) {}
+};
+
+struct CompareSandwichCustomer
+{
+    bool operator()(const SandwichCustomer& a, const SandwichCustomer& b)
+    {
+        return a.priority < b.priority
+    }
+};
+
+class SandwichQueue
+{
+    private:
+        priority_queue<SandwichCustomer, vector<SandwichCustomer>, CompareSandwichCustomer> queue;
+    public:
+        void enqueue(const string& name, const string& sandwichType, int priority)
+        {
+            SandwichCustomer newCustomer(name, sandwichType, priority);
+            queue.push(newCustomer);
+            cout << "Sandwich Booth: Customer " << name << " with sandwich " << sandwichType << " (Priority: " << priority << ") joined the queue.\n";
+        }
+
+        void displayQueue() const
+        {
+            // Create a copy to prevent modification
+            priority_queue<SandwichCustomer, vector<SandwichCustomer>, CompareSandwichCustomer> tempQueue = queue;
+            cout << "Sandwich Booth Queue: ";
+            while (!tempQueue.empty())
+            {
+                SandwichCustomer customer = tempQueue.top();
+                cout << "[" << customer.name << " - " << customer.sandwichType << " (Priority: " << customer.priority << ")] ";
+                tempQueue.pop();
+            }
+            cout << '\n';
+        }
+};
 
 int main()
 {
