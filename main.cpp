@@ -10,7 +10,15 @@ const int NUM_NAMES = 13;
 string drinks[] = {"Espresso", "Latte", "Cappuccino", "Americano", "Mocha",
                    "Flat White", "Macchiato", "Tea", "Hot Chocolate", "Iced Coffee"};
 const int NUM_DRINKS = 10;
-string muffinTypes[] = {"Blueberry", "Chocolate Chip"};
+std::string muffinTypes[] = {"Blueberry", "Chocolate Chip", "Banana Nut", "Bran", "Cranberry",
+                             "Apple Cinnamon", "Double Chocolate", "Lemon Poppyseed", "Raspberry", "Pumpkin"};
+const int NUM_MUFFINS = 10;
+std::string braceletTypes[] = {"Friendship Knot", "Beaded", "Charm", "Braided", "Wrap", "Cuff",
+                               "Leather", "Friendship", "Infinity", "Adjustable"};
+const int NUM_BRACELETS = 10;
+std::string sandwichTypes[] = {"Turkey Club", "Ham & Cheese", "BLT", "Veggie Delight",
+                               "Chicken Salad", "Tuna Melt", "Roast Beef", "Grilled Cheese", "Egg Salad", "Caprese"};
+const int NUM_SANDWICHES = 10;
 
 // Coffee Booth
 struct CoffeeNode
@@ -144,7 +152,7 @@ struct CompareSandwichCustomer
 {
     bool operator()(const SandwichCustomer& a, const SandwichCustomer& b)
     {
-        return a.priority < b.priority
+        return a.priority < b.priority;
     }
 };
 
@@ -179,8 +187,62 @@ int main()
 {
     srand(time(0));
 
+    CoffeeQueue coffeeQueue;
+    MuffinQueue muffinQueue;
+    BraceletQueue braceletQueue;
+    SandwichQueue sandwichQueue;
 
-    // Initialize Queue with three customers
+    cout << "Initializing Coffee Booth Queue:\n";
+    for (int i = 0; i < 3; i++)
+    {
+        string randomName = names[ rand() % NUM_NAMES ];
+        string randomDrink = drinks[ rand() % NUM_NAMES ];
+        coffeeQueue.enqueue(randomName, randomDrink);
+    }
+    coffeeQueue.displayQueue();
+    cout << "--------------------------------------------\n";
+
+    std::cout << "Initializing Muffin Booth Queue:\n";
+    for (int i = 0; i < 3; i++)
+    {
+        std::string randomName = names[ rand() % NUM_NAMES ];
+        std::string randomMuffin = muffinTypes[ rand() % NUM_MUFFINS];
+        muffinQueue.enqueue(randomName, randomMuffin);
+    }
+    muffinQueue.displayQueue();
+    cout << "----------------------------------------\n";
+
+    std::cout << "Initializing Bracelet Booth Queue:\n";
+    for (int i = 0; i < 3; i++)
+    {
+        std::string randomName = names[ rand() % NUM_NAMES ];
+        std::string randomBracelet = braceletTypes[ rand() % NUM_BRACELETS ];
+        braceletQueue.enqueue(randomName, randomBracelet);
+    }
+    braceletQueue.displayQueue();
+    cout << "----------------------------------------\n";
+
+    std::cout << "Initializing Sandwich Booth Queue:\n";
+    for (int i = 0; i < 3; i++)
+    {
+        std::string randomName = names[ rand() % NUM_NAMES ];
+        std::string randomSandwich = sandwichTypes[ rand() % NUM_SANDWICHES ];
+        int randomPriority = ( rand() % 5) + 1; // Priority between 1 and 5
+        sandwichQueue.enqueue(randomName, randomSandwich, randomPriority);
+    }
+    sandwichQueue.displayQueue();
+    cout << "----------------------------------------\n";
+
+    // Simulate for 10 times
+    const int TOTAL_ROUNDS = 10;
+    for (int round = 1; round <= TOTAL_ROUNDS; round++)
+    {
+        cout << "Round " << round << '\n';
+
+        // Coffee Booth
+
+    }
+
 
     return 0;
 }
