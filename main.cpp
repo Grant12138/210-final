@@ -74,6 +74,21 @@ class CoffeeQueue
             }
             cout << '\n';
         };
+
+        bool dequeue(string& servedName, string& servedDrink)
+        {
+            if (head == nullptr)
+                return false;
+            CoffeeNode* temp = head;
+            servedName = head->name;
+            servedDrink = head->drink;
+            head = head->next;
+            if (head == nullptr)
+                tail = nullptr;
+            delete temp;
+
+            return true;
+        }
 };
 
 // Muffin Booth
@@ -105,6 +120,17 @@ class MuffinQueue
                 cout << "[" << customer.name << " - " << customer.muffinType << "] ";
             cout << '\n';
         }
+
+        bool dequeue(string& servedName, string& servedMuffin)
+        {
+            if (queue.empty())
+                return false;
+            MuffinCustomer servedCustomer = queue.front();
+            servedName = servedCustomer.name;
+            servedMuffin = servedCustomer.muffinType;
+            queue.pop_front();
+            return true;
+        }
 };
 
 // Bracelet Booth
@@ -134,6 +160,17 @@ class BraceletQueue
             for (const auto& customer : queue)
                 cout << "[" << customer.name << " - " << customer.braceletType << "] ";
             cout << '\n';
+        }
+
+        bool dequeue(string& servedName, string& servedBracelet)
+        {
+            if (queue.empty())
+                return false;
+            BraceletCustomer servedCustomer = queue.front();
+            servedName = servedCustomer.name;
+            servedBracelet = servedCustomer.braceletType;
+            queue.erase(queue.begin());
+            return true;
         }
 };
 
@@ -180,6 +217,18 @@ class SandwichQueue
                 tempQueue.pop();
             }
             cout << '\n';
+        }
+
+        void dequeue(string& servedName, string& servedSandwich, int& servedPriority)
+        {
+            if (queue.empty())
+                return false;
+            SandwichCustomer servedCustomer = queue.top();
+            servedName = servedCustomer.name;
+            servedSandwich = servedCustomer.sandwichType;
+            servedPriority = servedCustomer.priority;
+            queue.pop();
+            return true;
         }
 };
 
@@ -240,6 +289,23 @@ int main()
         cout << "Round " << round << '\n';
 
         // Coffee Booth
+        string servedCoffeeName, servedCoffeeDrink;
+        if (coffeeQueue.dequeue(servedCoffeeName, servedCoffeeDrink))
+            cout << "Coffee Booth: Served " << servedCoffeeName << " their " << servedCoffeeDrink << ".\n";
+        else
+            cout << "Coffee Booth: No customer served this round.\n";
+
+        // Muffin Booth
+        string servedMuffinName, servedMuffinType;
+        if (muffinQueue.dequeue(servedMuffinName, servedMuffinType))
+            cout << "Muffin Booth: Served " << servedMuffinName << " their " << servedMuffinType << ".\n";
+        else
+            cout << "Muffin Booth: No customer served this round.\n";
+
+        // Bracelet Booth
+        string servedBraceletName, servedBraceletType;
+        if (braceletQueue.dequeue(servedBraceletName, servedBraceletType))
+            cout << "Bracelet Booth: Served " << servedBraceletName << " their "
 
     }
 
