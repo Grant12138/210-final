@@ -298,15 +298,58 @@ int main()
         // Muffin Booth
         string servedMuffinName, servedMuffinType;
         if (muffinQueue.dequeue(servedMuffinName, servedMuffinType))
-            cout << "Muffin Booth: Served " << servedMuffinName << " their " << servedMuffinType << ".\n";
+            cout << "Muffin Booth: Served " << servedMuffinName << " their " << servedMuffinType << " muffin.\n";
         else
             cout << "Muffin Booth: No customer served this round.\n";
 
         // Bracelet Booth
         string servedBraceletName, servedBraceletType;
         if (braceletQueue.dequeue(servedBraceletName, servedBraceletType))
-            cout << "Bracelet Booth: Served " << servedBraceletName << " their "
+            cout << "Bracelet Booth: Served " << servedBraceletName << " their " << servedBraceletType << " bracelet.\n";
+        else
+            cout << "Bracelet Booth: No customer served this round.\n";
 
+        // Sandwiches Booth
+        string servedSandwichName, servedSandwichType;
+        int servedSandwichPriority;
+        if (sandwichQueue.dequeue(servedSandwichName, servedSandwichType, servedSandwichPriority))
+            cout << "Sandwich Booth: Served " << servedSandwichName << " their " << servedSandwichType << " sandwich (Priority: " << servedSandwichPriority << ").\n";
+        else
+            cout << "Sandwich Booth: No customer served this round.\n";
+
+        // Add Coffee Customer
+        int addCoffeeCustomer = rand() % 2;
+        if (addCoffeeCustomer == 0)
+        {
+            string newCoffeeName = names[ rand() % NUM_NAMES ];
+            string newCoffeeDrink = drinks[ rand() % NUM_DRINKS ];
+            coffeeQueue.enqueue(newCoffeeName, newCoffeeDrink);
+        }
+
+        int addMuffinCustomer = rand() % 2;
+        if (addMuffinCustomer == 0)
+        {
+            string newMuffinName = names[ rand() % NUM_NAMES ];
+            string newMuffinType = muffinTypes[ rand() % NUM_MUFFINS ];
+            muffinQueue.enqueue(newMuffinName, newMuffinType);
+        }
+
+        int addBraceletCustomer = rand() % 2;
+        if (addBraceletCustomer == 0)
+        {
+            string newBraceletName = names[ rand() % NUM_NAMES ];
+            string newBraceletType = braceletTypes[ rand() % NUM_BRACELETS ];
+            braceletQueue.enqueue(newBraceletName, newBraceletType);
+        }
+
+        int addSandwichCustomer = rand() % 2;
+        if (addSandwichCustomer == 0)
+        {
+            string newSandwichName = names[ rand() % NUM_NAMES];
+            string newSandwichType = sandwichTypes[ rand() % NUM_SANDWICHES ];
+            int newSandwichPriority = 1 + (rand() % 5);
+            sandwichQueue.enqueue(newSandwichName, newSandwichType, newSandwichPriority);
+        }
     }
 
 
