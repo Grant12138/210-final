@@ -1,4 +1,6 @@
 #include <iostream>
+#include <deque>
+#include <queue>
 using namespace std;
 
 // Possible names and drinks
@@ -9,26 +11,27 @@ string drinks[] = {"Espresso", "Latte", "Cappuccino", "Americano", "Mocha",
                    "Flat White", "Macchiato", "Tea", "Hot Chocolate", "Iced Coffee"};
 const int NUM_DRINKS = 10;
 
-struct Node
+// Coffee Booth
+struct CoffeeNode
 {
     string name;
     string drink;
-    Node* next;
+    CoffeeNode* next;
 
-    Node(const string& customerName, const string& drinkOrder) :
-    name(customerName), drink(drinkOrder), next(nullptr) {}
+    CoffeeNode(const string& customerName, const string& drinkOrder)
+        : name(customerName), drink(drinkOrder), next(nullptr) {}
 };
 
-class Queue
+class CoffeeQueue
 {
     private:
         Node* head;
         Node* tail;
 
     public:
-        Queue() : head(nullptr), tail(nullptr) {}
+        CoffeeQueue() : head(nullptr), tail(nullptr) {}
 
-        ~Queue()
+        ~CoffeeQueue()
         {
             while (head != nullptr)
             {
@@ -40,7 +43,7 @@ class Queue
 
         void enqueue(const string& name, const string& drink)
         {
-            Node* newNode = new Node(name, drink);
+            CoffeeQueue* newNode = new CoffeeQueue(name, drink);
             if (tail == nullptr)
                 head = tail = newNode;
             else
@@ -48,12 +51,13 @@ class Queue
                 tail->next = newNode;
                 tail = newNode;
             }
+            cout << "Coffee Booth: Customer " << name << " with drink " << drink << " joined the queue.\n";
         }
 
         void displayQueue() const
         {
             cout << "Current Queue: ";
-            Node* current = head;
+            CoffeeNode* current = head;
             while (current != nullptr)
             {
                 cout << "[" << current->name << " - " << current->drink << "]";
@@ -63,22 +67,35 @@ class Queue
         };
 };
 
+// Muffin Booth
+struct MuffinCustomer
+{
+    string name;
+    string muffinType;
 
+    MuffinCustomer(const string& customerName, const string& customerMuffin)
+        : name(customerName), muffinType(customerMuffin) {}
+};
 
+class MuffinQueue
+{
+    private:
+        deque<MuffinCustomer> queue;
+
+    public:
+        void enqueue(const string& name, const string& muffinType)
+        {
+            queue.emplace_back(name, muffinType);
+            cout << "Muffin Booth: Customer " << name << " with muffin" << muffinType << " joined the queue.\n";
+        }
+};
 
 int main()
 {
     srand(time(0));
 
-    Queue coffeeQueue;
 
     // Initialize Queue with three customers
-    for (int i = 0; i < 3; i++)
-    {
-        string randomName = names[ rand() % NUM_NAMES ];
-        string randomDrink = drinks[ rand() % NUM_DRINKS ];
-        coffeeQueue.enqueue(randomName, randomDrink);
-    }
 
     return 0;
 }
